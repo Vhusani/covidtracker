@@ -1,0 +1,8 @@
+<mat-toolbar>
+    <div class="container">
+        <button class="rotate-in-center" *ngIf="hasRoute('country')" color="primary" mat-mini-fab (click)="dashboard()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+        <span ><img class="appName" src="{{appName}}"></span>
+    </div>
+</mat-toolbar>

@@ -1,0 +1,97 @@
+<div class="row">
+    <!--div class="col-12 col-md-6">
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <mat-icon class="sum-icons">language</mat-icon>
+                <div style="display: inline-block;" class="mat-sort-header-content ng-tns-c70-1">Worldwide</div>
+            </div>
+        </div>
+        <div style="margin-bottom: 10px;"></div>
+        <div class="row">
+            <div class="col-6 col-sm-4 border-right bottomanly">
+              <div class="mat-sort-header-content ng-tns-c70-1">
+                <mat-icon class="sum-icons coronavirus">coronavirus</mat-icon>      
+                Total Cases
+            </div>
+                <h2>{{totalCases}}</h2>
+                <ngx-skeleton-loader *ngIf="!todayCases" count="1" appearance="line"></ngx-skeleton-loader>
+                <span *ngIf="todayCases" class="todayStats">+ {{todayCases}}</span>
+            </div>
+            <div class="col-6 col-sm-4 border-right bottomanly">
+                <div class="mat-sort-header-content ng-tns-c70-1">
+                    <mat-icon class="sum-icons health">health_and_safety</mat-icon>
+                    Total Recovered
+                </div>
+                <ngx-skeleton-loader *ngIf="!totalDeaths" count="1" appearance="line"></ngx-skeleton-loader>
+                <h2>{{totalRecoveries}}</h2>
+                <span *ngIf="todayDeaths" class="todayStats">+ {{todayRecovered}}</span>
+            </div>
+            <div class="col-6 col-sm-4 bottomanly">
+                <div class="mat-sort-header-content ng-tns-c70-1">
+                    <mat-icon class="sum-icons hotel">hotel</mat-icon>
+                    Total Deaths
+                </div>
+                <ngx-skeleton-loader *ngIf="!totalDeaths" count="1" appearance="line"></ngx-skeleton-loader>
+                <h2>{{totalDeaths}}</h2>
+                <span *ngIf="todayDeaths" class="todayStats">+ {{todayDeaths}}</span>
+            </div>
+          </div>
+    </div-->
+    <div class="col-12 col-md-6" >
+        <div class="search-container">
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Search stats" autocomplete="off" (keyup)="filterData($event)">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<p class="hint" style="cursor: pointer;">
+    <span *ngIf="todayCases" (click)="world()"><mat-icon class="sum-icons">language</mat-icon>
+        Click here for worldwide stats</span>
+</p>
+<p class="hint"><span><mat-icon class="sum-icons">info</mat-icon>
+</span> Hint: Click on a country for more info</p>
+<div class="row">
+    <div class="col-12 col-md-12">
+        <table style="background: #fff;" mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="countryInfo">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <img class="flag" src="{{element.countryInfo.flag}}"> 
+                    <span *ngIf="!element.countryInfo.flag">loading..</span>
+                </td>
+            </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="country">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Country</th>
+                <td mat-cell *matCellDef="let element"><a [routerLink]="['country', element.country]">{{element.country}}</a>
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="cases">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Cases </th>
+                <td mat-cell *matCellDef="let element">{{element.cases.toLocaleString()}}</td>
+            </ng-container>
+        
+
+            <ng-container matColumnDef="recovered">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Recovered</th>
+                <td mat-cell *matCellDef="let element">{{element.recovered.toLocaleString()}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="deaths">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Deaths</th>
+                <td mat-cell *matCellDef="let element"> {{element.deaths.toLocaleString()}} </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="fade-in" mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+        </table>
+        <ngx-skeleton-loader *ngIf="!totalCases" count="5" appearance="line"></ngx-skeleton-loader>
+
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        </mat-paginator>
+    </div>
+</div>

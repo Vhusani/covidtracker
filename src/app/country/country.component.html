@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-12 col-md-3 bottomanly">
+        <mat-card *ngIf="!data">
+            <ngx-skeleton-loader count="4" appearance="line"></ngx-skeleton-loader>
+        </mat-card>
+        <mat-card *ngIf="data">
+            <div class="mat-sort-header-content ng-tns-c70-1 bottom">Country name</div>
+            <mat-card-subtitle>{{data.country}}</mat-card-subtitle>
+            <div class="mat-sort-header-content ng-tns-c70-1 bottom">Continent</div>
+            <mat-card-subtitle>{{data.continent}}</mat-card-subtitle>
+            <div class="mat-sort-header-content ng-tns-c70-1 bottom">Population</div>
+            <mat-card-subtitle>{{data.population.toLocaleString()}} +</mat-card-subtitle>
+            <img class="countryflag bottom" src="{{data.countryInfo.flag}}">
+        </mat-card>
+    </div>
+    <div class="col-12 col-md-9 bottomanly">
+        <mat-card>
+            <div *ngIf="!data">
+                <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+            </div>
+            <div *ngIf="data" class="row">
+                <div class="col-12 col-sm-12">
+                    <h2 *ngIf="data.cases.toLocaleString()">{{data.cases.toLocaleString()}} <span style="font-weight: 300;text-transform: uppercase;">Covid-19 Cases</span></h2>
+                    <h5>+ {{data.todayCases}} today</h5>
+                </div>
+            </div>
+            <!--skeleton-->
+            <div *ngIf="!data" class="row">
+                <div class="col-6 col-sm-3 bottomanly" *ngFor="let item of [].constructor(4)">
+                    <div class="card" style="border: none !important">
+                        <div class="card-body">
+                            <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                            <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---skeleton--->
+            <div  *ngIf="data" class="row">
+                <div class="col-6 col-sm-3 bottomanly">
+                    <div class="card ">
+                        <div class="card-body">
+                            <mat-icon class="sum-icons coronavirus">coronavirus</mat-icon>
+                            <div style="display: inline-block;" class="mat-sort-header-content ng-tns-c70-1">Active cases</div>
+                          <h2>{{data.active.toLocaleString()}}</h2>
+                          <span class="todayStats">+ {{data.todayCases}} new cases</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 bottomanly">
+                    <div class="card ">
+                        <div class="card-body">
+                            <mat-icon class="sum-icons health">health_and_safety</mat-icon>
+                            <div style="display: inline-block;" class="mat-sort-header-content ng-tns-c70-1">Recovered</div>
+                          <h2>{{data.recovered.toLocaleString()}}</h2>
+                          <span class="todayStats">+ {{data.todayRecovered}} new recoveries</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 bottomanly">
+                    <div class="card ">
+                        <div class="card-body">
+                            <mat-icon class="sum-icons hotel">hotel</mat-icon>
+                            <div style="display: inline-block;" class="mat-sort-header-content ng-tns-c70-1">Deaths</div>
+                          <h2>{{data.deaths.toLocaleString()}}</h2>
+                          <span class="todayStats">+ {{data.todayDeaths}} new deaths</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 bottomanly">
+                    <div class="card ">
+                        <div class="card-body">
+                            <mat-icon class="sum-icons medication">medication</mat-icon>
+                            <div style="display: inline-block;" class="mat-sort-header-content ng-tns-c70-1">Tests</div>
+                          <h2>{{data.tests.toLocaleString()}}</h2>
+                          <span class="todayStats">No updates</span>
+                        </div>
+                    </div>
+                </div>
+                <!--per 1 mil-->
+            </div>
+            <div *ngIf="!data" class="row">
+                <div *ngFor="let item of [].constructor(2)" class="col-12 col-sm-6">
+                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                </div>
+            </div>
+            <div class="row hide">
+                <div class="col-12 col-sm-6">
+                    <div>
+                        <canvas id="canvas">
+                            {{chart}}
+                        </canvas>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <canvas id="today">
+                        {{chart}}
+                    </canvas>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
